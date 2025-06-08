@@ -13,9 +13,11 @@ class Car:
             raise TypeError("Must park in a CarPark!")
         if self.parked_in_bay == True and self.carpark != carpark:
             raise ValueError("Car already parked in another carpark.")
-        else: 
-            self.carpark = carpark
-            self.parked_in_bay = True
+
+        self.carpark = carpark
+        self.parked_in_bay = True
+        carpark.cars.append(self)
+        # Car parks > adds carpark > gets added to carpark. Perhaps when this happens > sensor scans? how.
 
     def exit(self):
         pass

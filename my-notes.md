@@ -27,3 +27,4 @@ Car exists (in carpark? or elsewhere...) -> car parks -> sensor notices -> senso
 Should there be a method for a car to enter the carpark? And one for them to park? What is the benefit of including the former:
 1. Allows for cars to be 'assigned' to carpark, meaning we can have multiple carparks, and the same car can park in each one at different times. Without this, the car having 'parked_in_bay = True' doesn't necessarily mean anything for any particular carpark.
     - Perhaps just need to specify which carpark it has parked into, when it parks - instead of creating a whole extra method for entry. I will do this.
+ 
