@@ -13,7 +13,7 @@
 
 
 
-# Coding Requirements
+## Coding Requirements
 []	Create at least three classes
 []	At least one class must include three or more parameters
 []	At least one class must aggregate another class
@@ -29,7 +29,7 @@
 
 
 
-# Git requirements
+### Git requirements
 []	Follow the guidelines in the NMS Onboarding guide
 []	Create a new repository and configure it with a README, .gitignore, and other essential setup files.
 []	Initialize your local repository and link it to a remote repository on GitHub.
