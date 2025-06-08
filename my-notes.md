@@ -5,6 +5,21 @@ Many reasons; for one, the requirements say it must be *scalable*. Two, it wants
 Also, it just feels better, ok??? Are we doing this or what???
 
 
-
-## Sensors and cars
+# Interaction between classes
 Car exists (in carpark? or elsewhere...) -> car parks -> sensor notices -> sensor scans license plate -> tells carpark -> carpark stores license plate -> carpark updates total bays -> tells display -> display updates
+
+**Sensor:**
+- Notices car parked
+- Scans license plate
+- Sends to carpark
+
+**Carpark:**
+- Stores license plate
+- Updates avaiable bays
+- Tells display
+
+**Display:**
+- Updates display (for available bays)
+- Updates display (for weather)
+- Updates display (for messages)
+
