@@ -10,7 +10,7 @@ class CarPark:
         self.cars = cars
 
     def __str__(self):
-        return f"{location} carpark has a max capacity of {capacity}"
+        return f"{self.location} carpark has a max capacity of {self.capacity}"
 
     def log_license_plates(self, new_license_plates):
         ... # Come back to this and figure it out
