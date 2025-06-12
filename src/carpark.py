@@ -9,8 +9,10 @@ class CarPark:
         self.displays = displays or []
         self.sensor = sensor or []
         self.cars = cars or []
-        self.filled_bays = len(self.cars)
-        self.available_bays = capacity - self.filled_bays
+
+    @property
+    def available_bays(self):
+        return self.capacity - len(self.license_plates)
 
     def __str__(self):
         return f"{self.location} carpark has a max capacity of {self.capacity}"

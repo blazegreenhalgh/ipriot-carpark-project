@@ -17,10 +17,10 @@ class Car:
             raise TypeError("Must park in a CarPark!")
         if self.parked_in_bay == True and self.carpark != carpark:
             raise ValueError("Car already parked in another carpark.")
-        if carpark.available_bays <= carpark.capacity:
+        if carpark.available_bays > 0:
             self.carpark = carpark
             self.parked_in_bay = True
-        else:
+        elif carpark.available_bays >= 0:
             raise ValueError("I can't go park, carpark is full!")
 
     def exit(self):
