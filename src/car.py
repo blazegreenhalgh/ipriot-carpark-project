@@ -24,4 +24,9 @@ class Car:
             raise ValueError("I can't go park, carpark is full!")
 
     def exit(self):
-        pass
+        if not self.parked_in_bay:
+            raise ValueError("Not parked!")
+        else:
+            self.carpark = None
+            self.parked_in_bay = False
+
