@@ -13,5 +13,5 @@ class Sensor:
         elif car.parked_in_bay == False:
             self.carpark.filled_bays -= 1
             self.carpark.cars.remove(car)
-        self.carpark.update_plate_database(car.license_plate)
+        self.carpark.update_plate_database(car._license_plate)
 

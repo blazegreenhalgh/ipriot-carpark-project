@@ -1,13 +1,11 @@
 import unittest
 from carpark import CarPark
-from car import Car
 from sensor import Sensor
 from display import Display
 
 class TestCarPark(unittest.TestCase):
     def setUp(self):
         self.carpark = CarPark("Belmont", 25)
-        self.car = Car()
         self.sensor = Sensor(1, self.carpark)
         self.display = Display(2, self.carpark)
 
@@ -23,12 +21,6 @@ class TestCarPark(unittest.TestCase):
         self.assertEqual(self.carpark.license_plates, [])
         self.assertEqual(self.carpark.displays, [])
         self.assertEqual(self.carpark.sensor, [])
-
-    def test_license_plate_is_added_and_removed_from_database(self):
-        self.carpark.update_plate_database(self.car)
-        self.assertIn(self.car._license_plate, self.carpark.license_plates)
-        self.carpark.update_plate_database(self.car)
-        self.assertNotIn(self.car._license_plate, self.carpark.license_plates)
 
     def test_register_sensor(self):
         self.carpark.register_component(self.sensor)

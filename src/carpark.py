@@ -5,21 +5,21 @@ class CarPark:
     def __init__(self, location, capacity, license_plates=None, displays=None, sensor=None, cars=None):
         self.location = location
         self.capacity = capacity
-        self.filled_bays = len(self.cars)
-        self.available_bays = capacity - self.filled_bays
         self.license_plates = license_plates or []
         self.displays = displays or []
         self.sensor = sensor or []
         self.cars = cars or []
+        self.filled_bays = len(self.cars)
+        self.available_bays = capacity - self.filled_bays
 
     def __str__(self):
         return f"{self.location} carpark has a max capacity of {self.capacity}"
 
-    def update_plate_database(self, car):
-        if car._license_plate in self.license_plates:
-            self.license_plates.remove(car._license_plate)
+    def update_plate_database(self, license_plate):
+        if license_plate in self.license_plates:
+            self.license_plates.remove(license_plate)
         else:
-            self.license_plates.append(car._license_plate)
+            self.license_plates.append(license_plate)
         self.update_displays()
 
 
@@ -35,8 +35,8 @@ class CarPark:
 
     def update_displays(self):
         data = {
-            "available_bays": self.available_bays,
-            "temperature": 25,
+            "Available Bays": self.available_bays,
+            "Temperature": 25,
         }
         for display in self.displays:
             display.update(data)
