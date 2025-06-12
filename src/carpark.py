@@ -2,7 +2,7 @@ from sensor import Sensor
 from display import Display
 
 class CarPark:
-    def __init__(self, location, capacity, filled_bays, license_plates=None, displays=None, sensor=None, cars=None):
+    def __init__(self, location, capacity, filled_bays=0, license_plates=None, displays=None, sensor=None, cars=None):
         self.location = location
         self.capacity = capacity
         self.filled_bays = filled_bays
