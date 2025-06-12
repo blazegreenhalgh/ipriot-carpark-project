@@ -16,7 +16,10 @@ class CarPark:
         return f"{self.location} carpark has a max capacity of {self.capacity}"
 
     def update_plate_database(self, car):
-        self.license_plates.append(car.license_plate)
+        if car.license_plate in self.license_plates:
+            self.license_plates.remove(car.license_plate)
+        else:
+            self.license_plates.append(car.license_plate)
         self.update_displays()
 
     def remove_license_plate(self, car):
