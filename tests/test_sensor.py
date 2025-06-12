@@ -9,7 +9,7 @@ class TestCarPark(unittest.TestCase):
         self.car = Car()
         self.sensor = Sensor(1, self.carpark)
 
-    def test_sensor_initialised_with_all_aatributes(self):
+    def test_sensor_initialised_with_all_attributes(self):
         self.assertIsInstance(self.sensor, Sensor)
         self.assertEqual(self.sensor.id, 1)
         self.assertEqual(self.sensor.carpark, self.carpark)
