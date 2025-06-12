@@ -20,7 +20,6 @@ class Car:
         if carpark.available_bays < carpark.capacity:
             self.carpark = carpark
             self.parked_in_bay = True
-            self.carpark.cars.append(self)
         else:
             raise ValueError("Carpark is full!")
         # Car parks > adds carpark > gets added to carpark. Perhaps when this happens > sensor scans? how.

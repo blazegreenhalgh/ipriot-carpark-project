@@ -22,8 +22,6 @@ class CarPark:
             self.license_plates.append(car.license_plate)
         self.update_displays()
 
-    def remove_license_plate(self, car):
-        self.license_plates.remove(car.license_plate)
 
     def register_component(self, component):
         if not isinstance(component, (Sensor, Display)):
