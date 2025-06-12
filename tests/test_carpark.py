@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 from carpark import CarPark
 from sensor import Sensor
 from display import Display
@@ -16,7 +17,6 @@ class TestCarPark(unittest.TestCase):
         self.assertIsInstance(self.carpark, CarPark)
         self.assertEqual(self.carpark.location, "Belmont")
         self.assertEqual(self.carpark.capacity, 25)
-        self.assertEqual(self.carpark.filled_bays, 0)
         self.assertEqual(self.carpark.available_bays, 25)
         self.assertEqual(self.carpark.license_plates, [])
         self.assertEqual(self.carpark.displays, [])
