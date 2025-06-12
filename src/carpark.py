@@ -35,12 +35,14 @@ class CarPark:
             self.displays.append(component)
             component.carpark = self
 
-    def update_displays(self):
-        data = {
-            "Available Bays": self.available_bays,
-            "Temperature": 25,
-        }
-        for display in self.displays:
-            display.update(data)
+    def update_display(self, key, value):
+        # DOCSTRING HERE
+        if key not in ["temperature", "available_bays", "message"]:
+            raise ValueError("Must input temperature, available_bays, or message")
+        else:
+            for display in self.displays:
+                display.display_data(key, value)
+
+
 
 
