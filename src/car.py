@@ -1,12 +1,16 @@
 from carpark import CarPark
+import random
 
 class Car:
-    def __init__(self, license_plate, carpark, entry_time=None, exit_time=None, parked_in_bay=False):
-        self.license_plate = license_plate
+    def __init__(self, carpark, entry_time=None, exit_time=None, parked_in_bay=False):
+        self._license_plate = self._initiate_license_plate()
         self.carpark = carpark
         self.entry_time = entry_time
         self.exit_time = exit_time
         self.parked_in_bay = parked_in_bay
+
+    def _initiate_license_plate(self):
+        return 'FAKE-' + format(random.randint(0, 999), "03d") 
 
     def park(self, carpark):
         if not isinstance(carpark, CarPark):
