@@ -8,8 +8,8 @@ class Display:
 
     def __str__(self):
         return f"Display {self.id}: Welcome to the {self.carpark.location} carpark."
-
-    def display_bays(self, available_bays):
-        # Minimal idea presented here.
-        print(f"{available_bays} available") 
+    
+    def update(self, data):
+        for key, value in data:
+            print(f"{key}: {value}")
 
