@@ -22,7 +22,6 @@ class Car:
             self.parked_in_bay = True
         else:
             raise ValueError("Carpark is full!")
-        # Car parks > adds carpark > gets added to carpark. Perhaps when this happens > sensor scans? how.
 
     def exit(self):
         pass

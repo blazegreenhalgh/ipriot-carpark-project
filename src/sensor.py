@@ -9,8 +9,10 @@ class Sensor:
 
     def scan_car(self, car):
         if car.parked_in_bay == True:
+            self.carpark.filled_bays += 1
             self.carpark.cars.append(car)
         elif car.parked_in_bay == False:
+            self.carpark.filled_bays -= 1
             self.carpark.cars.remove(car)
         self.carpark.update_plate_database(car.license_plate)
 
