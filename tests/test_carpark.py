@@ -59,5 +59,3 @@ class TestCarPark(unittest.TestCase):
        Path(self.log_file_path).unlink(missing_ok=True)
 
 
-if __name__ == "__main__":
-    unittest.main()
