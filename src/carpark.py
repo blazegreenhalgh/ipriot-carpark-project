@@ -24,12 +24,10 @@ class CarPark:
     def __str__(self):
         return f"{self.location} carpark has a max capacity of {self.capacity}"
 
-    def update_plate_database(self, license_plate):
-        if license_plate in self.license_plates:
-            self.license_plates.remove(license_plate)
-        else:
-            self.license_plates.append(license_plate)
-        self.update_display("available_bays", self.available_bays)
+    def _log_car_activity(self, car):
+        car_action = "parked" if car.parked_in_bay == True else "left"
+        with self.log_file.open('a') as file:
+            file.write(f"Car with plate {car._license_plate} {car_action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
 
     def register_component(self, component):
         if not isinstance(component, (Sensor, Display)):
@@ -41,6 +39,13 @@ class CarPark:
             self.displays.append(component)
             component.carpark = self
 
+    def update_plate_database(self, license_plate):
+        if license_plate in self.license_plates:
+            self.license_plates.remove(license_plate)
+        else:
+            self.license_plates.append(license_plate)
+        self.update_display("available_bays", self.available_bays)
+
     def update_display(self, key, value):
         # it used to be a dictionary here, but I found it easier to just type two parameters when calling this function - please let me know what is best practice (I have a feeling it's the former)
         if key not in ["temperature", "available_bays", "message"]:
@@ -48,13 +53,6 @@ class CarPark:
         else:
             for display in self.displays:
                 display.display_data(key, value)
-
-
-    def _log_car_activity(self, car):
-        car_action = "parked" if car.parked_in_bay == True else "left"
-        with self.log_file.open('a') as file:
-            file.write(f"Car with plate {car._license_plate} {car_action} at {datetime.now():%Y-%m-%d %H:%M:%S}\n")
-
 
     def write_config(self):
         with open(self.config_file, "w") as f:
