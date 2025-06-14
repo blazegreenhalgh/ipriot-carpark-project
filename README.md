@@ -81,6 +81,8 @@ You can update the temperature and message shown on the display.
 moondalup_carpark.display.display_data("temperature", 37)
 moondalup_carpark.display.display_data("message", "It's bloody hot!")
 ```
+A ColouredDisplay can be used, which displays the available bays with a green background if <3, and yellow of >3
+
 
 ### More Carparks!
 Any number of carparks can be created, with any number of cars. A car can park at one carpark, and then move to another, and so on and so forth. All of this will be logged in the corresponding log_file for each carpark (or, in one file if both are the same)

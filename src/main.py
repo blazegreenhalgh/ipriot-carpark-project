@@ -1,6 +1,6 @@
 from car import Car
 from carpark import CarPark
-from display import Display
+from display import Display, ColouredDisplay
 from sensor import Sensor
 
 
@@ -35,3 +35,13 @@ moondalup_sensor.scan_car(car_three)
 # car_four is still in the carpark, despite bays being full.
 # if attempted to park, would raise an exception.
 
+
+tyumen = CarPark("Tyumen", 1)
+russian_display = ColouredDisplay(1, tyumen)
+russian_sensor = Sensor(1, tyumen)
+tyumen.register_component(russian_display)
+tyumen.register_component(russian_sensor)
+russian_car = Car()
+
+russian_car.park(tyumen)
+russian_sensor.scan_car(russian_car)
