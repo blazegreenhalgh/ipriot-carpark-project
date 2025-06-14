@@ -40,7 +40,7 @@ class CarPark:
             component.carpark = self
 
     def update_display(self, key, value):
-        # DOCSTRING HERE
+        # it used to be a dictionary here, but I found it easier to just type two parameters when calling this function - please let me know what is best practice (I have a feeling it's the former)
         if key not in ["temperature", "available_bays", "message"]:
             raise ValueError("Must input temperature, available_bays, or message")
         else:

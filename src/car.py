@@ -11,6 +11,13 @@ class Car:
         return 'FAKE-' + format(random.randint(0, 999), "03d") 
 
     def park(self, carpark):
+        """
+        Attributes a carpark to the car, and sets parked_in_bay to True.
+        Note: the sensor must scan the car to be added to it's database. 
+
+        Args: 
+            carpark(obj): The carpark the car will park in. 
+        """
         if not isinstance(carpark, CarPark):
             raise TypeError("Must park in a CarPark!")
         if self.parked_in_bay == True and self.carpark != carpark:
