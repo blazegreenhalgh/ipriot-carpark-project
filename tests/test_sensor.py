@@ -2,6 +2,7 @@ import unittest
 from carpark import CarPark
 from car import Car
 from sensor import Sensor
+from display import Display
 from datetime import datetime
 
 class TestCarPark(unittest.TestCase):
@@ -9,6 +10,9 @@ class TestCarPark(unittest.TestCase):
         self.carpark = CarPark("Belmont", 1)
         self.car = Car()
         self.sensor = Sensor(1, self.carpark)
+        self.display = Display(1, self.carpark)
+        self.carpark.register_component(self.sensor)
+        self.carpark.register_component(self.display)
 
     def test_sensor_initialised_with_all_attributes(self):
         self.assertIsInstance(self.sensor, Sensor)

@@ -13,7 +13,7 @@ class Car:
     def park(self, carpark):
         """
         Attributes a carpark to the car, and sets parked_in_bay to True.
-        Note: the sensor must scan the car to be added to it's database. 
+        Note: the sensor must scan the car to be added to the carparks database. 
 
         Args: 
             carpark(obj): The carpark the car will park in. 
@@ -25,7 +25,7 @@ class Car:
         if carpark.available_bays > 0:
             self.carpark = carpark
             self.parked_in_bay = True
-        elif carpark.available_bays >= 0:
+        elif carpark.available_bays <= 0:
             raise ValueError("I can't go park, carpark is full!")
 
     def exit(self):

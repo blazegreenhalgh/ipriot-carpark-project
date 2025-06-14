@@ -6,10 +6,12 @@ from sensor import Sensor
 
 class TestDisplay(unittest.TestCase):
     def setUp(self):
-        self.carpark = CarPark("Russia", 25)
+        self.carpark = CarPark("Belmont", 25)
         self.display = Display(1, self.carpark)
         self.car = Car()
         self.sensor = Sensor(1, self.carpark)
+        self.carpark.register_component(self.sensor)
+        self.carpark.register_component(self.display)
 
 
     def test_display_initialised_with_all_attributes(self):
@@ -18,12 +20,12 @@ class TestDisplay(unittest.TestCase):
         self.assertEqual(self.display.carpark, self.carpark)
 
     def test_display_formatting_correctly(self):
-        self.assertEqual(self.display.display_data("available_bays", 30), "Available bays: 30")
+        self.assertEqual(self.display.display_data("available_bays", 30), "Available bays at Belmont carpark: 30")
 
     def test_display_accurate_bay_count(self):
         self.car.park(self.carpark)
         self.sensor.scan_car(self.car)
-        self.assertEqual(self.display.display_data("available_bays", 29), "Available bays: 29")
+        self.assertEqual(self.display.display_data("available_bays", 29), "Available bays at Belmont carpark: 29")
 
 
     def test_error_when_wrong_argument_provided_to_display(self):

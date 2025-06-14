@@ -5,12 +5,12 @@ from datetime import datetime
 import json
 
 class CarPark:
-    def __init__(self, location, capacity, license_plates=None, displays=None, sensor=None, cars=None, log_file=Path("log.txt"), config_file=Path("config.txt")):
+    def __init__(self, location, capacity, license_plates=None, display=None, sensor=None, cars=None, log_file=Path("log.txt"), config_file=Path("config.json")):
         self.location = location
         self.capacity = capacity
         self.license_plates = license_plates or []
-        self.displays = displays or []
-        self.sensor = sensor or []
+        self.display = display
+        self.sensor = sensor
         self.cars = cars or []
         self.log_file = log_file if isinstance(log_file, Path) else Path(log_file)
         self.log_file.touch(exist_ok=True)
@@ -22,7 +22,7 @@ class CarPark:
         return self.capacity - len(self.license_plates)
 
     def __str__(self):
-        return f"{self.location} carpark has a max capacity of {self.capacity}"
+        return self.location
 
     def _log_car_activity(self, car):
         car_action = "parked" if car.parked_in_bay == True else "left"
@@ -33,10 +33,10 @@ class CarPark:
         if not isinstance(component, (Sensor, Display)):
             raise TypeError("Component must be a Sensor or Display")
         if isinstance(component, Sensor):
-            self.sensor.append(component)
+            self.sensor = component
             component.carpark = self
         elif isinstance(component, Display):
-            self.displays.append(component)
+            self.display = component
             component.carpark = self
 
     def update_plate_database(self, license_plate):
@@ -51,8 +51,7 @@ class CarPark:
         if key not in ["temperature", "available_bays", "message"]:
             raise ValueError("Must input temperature, available_bays, or message")
         else:
-            for display in self.displays:
-                display.display_data(key, value)
+            self.display.display_data(key, value)
 
     def write_config(self):
         with open(self.config_file, "w") as f:

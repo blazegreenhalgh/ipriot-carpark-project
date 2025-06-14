@@ -2,12 +2,16 @@ import unittest
 from carpark import CarPark
 from car import Car
 from sensor import Sensor
+from display import Display
 
 class TestCarPark(unittest.TestCase):
     def setUp(self):
         self.carpark = CarPark("Belmont", 1)
         self.car = Car()
         self.sensor = Sensor(1, self.carpark)
+        self.display = Display(1, self.carpark)
+        self.carpark.register_component(self.sensor)
+        self.carpark.register_component(self.display)
 
     def test_car_initialised_with_all_attributes(self):
         self.assertIsInstance(self.car, Car)

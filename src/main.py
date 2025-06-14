@@ -3,12 +3,35 @@ from carpark import CarPark
 from display import Display
 from sensor import Sensor
 
-belmont_carpark = CarPark('Belmont', 3)
-red_car = Car()
-belmont_display = Display(1, belmont_carpark)
-belmont_sensor = Sensor(2, belmont_carpark)
 
+moondalup_carpark = CarPark('Moondalup', 3, log_file="moondalup.txt", config_file="moondalup_config.json")
+moondalup_carpark.write_config()
+moondalup_carpark.from_config(moondalup_carpark.config_file)
 
-red_car.park(belmont_carpark)
-print(f"Red Car's carpark: {red_car.carpark}")
-belmont_sensor.scan_car(red_car)
+# Instantiate and register components
+moondalup_sensor = Sensor(1, moondalup_carpark)
+moondalup_carpark.register_component(moondalup_sensor)
+moondalup_display = Display(1, moondalup_carpark)
+moondalup_carpark.register_component(moondalup_display)
+print(moondalup_carpark.sensor)
+
+car_one = Car()
+car_two = Car()
+car_three = Car()
+# Cars can be inside the carpark without parking (this is my functionality of the 'uncontrolled' element).
+car_four = Car(carpark=moondalup_carpark)
+
+# Car can park, and is scanned when parked.
+car_one.park(moondalup_carpark)
+moondalup_carpark.sensor.scan_car(car_one)
+
+car_two.park(moondalup_carpark)
+moondalup_carpark.sensor.scan_car(car_two)
+
+# Alternative syntax for scanning
+car_three.park(moondalup_carpark)
+moondalup_sensor.scan_car(car_three)
+
+# car_four is still in the carpark, despite bays being full.
+# if attempted to park, would raise an exception.
+

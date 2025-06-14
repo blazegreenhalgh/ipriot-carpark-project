@@ -12,6 +12,7 @@ class TestCarPark(unittest.TestCase):
         self.carpark = CarPark("Belmont", 25, log_file = Path(self.log_file_path))
         self.sensor = Sensor(1, self.carpark)
         self.display = Display(2, self.carpark)
+
         self.car = Car(_license_plate="123")
 
 
@@ -24,14 +25,16 @@ class TestCarPark(unittest.TestCase):
         self.assertEqual(self.carpark.capacity, 25)
         self.assertEqual(self.carpark.available_bays, 25)
         self.assertEqual(self.carpark.license_plates, [])
-        self.assertEqual(self.carpark.displays, [])
-        self.assertEqual(self.carpark.sensor, [])
+        self.assertEqual(self.carpark.display, None)
+        self.assertEqual(self.carpark.sensor, None)
         self.assertEqual(self.carpark.log_file, Path(self.log_file_path))
     
     def test_log_file_exists(self):
         self.assertTrue(self.carpark.log_file.exists())
 
     def test_car_logged_when_entering(self):
+        self.carpark.register_component(self.sensor)
+        self.carpark.register_component(self.display)
         self.car.park(self.carpark)
         self.sensor.scan_car(self.car)
         with self.carpark.log_file.open() as f:
@@ -39,6 +42,8 @@ class TestCarPark(unittest.TestCase):
         self.assertIn(f"Car with plate 123 parked at {datetime.now():%Y-%m-%d %H:%M:%S}\n", last_line)
 
     def test_car_logged_when_exiting(self):
+        self.carpark.register_component(self.sensor)
+        self.carpark.register_component(self.display)
         self.car.park(self.carpark)
         self.sensor.scan_car(self.car)
         self.car.exit()
@@ -49,11 +54,11 @@ class TestCarPark(unittest.TestCase):
 
     def test_register_sensor(self):
         self.carpark.register_component(self.sensor)
-        self.assertIn(self.sensor, self.carpark.sensor)
+        self.assertEqual(self.sensor, self.carpark.sensor)
 
     def test_register_display(self):
         self.carpark.register_component(self.display)
-        self.assertIn(self.display, self.carpark.displays)
+        self.assertEqual(self.display, self.carpark.display)
 
     def tearDown(self):
        Path(self.log_file_path).unlink(missing_ok=True)
