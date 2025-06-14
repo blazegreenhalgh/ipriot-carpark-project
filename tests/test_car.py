@@ -1,5 +1,4 @@
 import unittest
-import car
 from carpark import CarPark
 from car import Car
 from sensor import Sensor
@@ -13,8 +12,6 @@ class TestCarPark(unittest.TestCase):
     def test_car_initialised_with_all_attributes(self):
         self.assertIsInstance(self.car, Car)
         self.assertIsNone(self.car.carpark)
-        self.assertIsNone(self.car.entry_time)
-        self.assertIsNone(self.car.exit_time)
         self.assertFalse(self.car.parked_in_bay)
 
     def test_park(self):

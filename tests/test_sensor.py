@@ -19,7 +19,6 @@ class TestCarPark(unittest.TestCase):
         self.car.park(self.carpark)
         self.sensor.scan_car(self.car)
         self.assertIn(self.car, self.carpark.cars)
-        self.assertEqual(self.car.entry_time, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         self.assertIn(self.car._license_plate, self.carpark.license_plates)
 
     def test_car_exit_successfully(self):
@@ -27,5 +26,5 @@ class TestCarPark(unittest.TestCase):
         self.sensor.scan_car(self.car)
         self.car.exit()
         self.sensor.scan_car(self.car)
-        self.assertEqual(self.car.exit_time, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         self.assertEqual(self.car.parked_in_bay, False)
+        self.assertFalse(self.car in self.carpark.cars)

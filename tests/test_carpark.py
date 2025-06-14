@@ -4,11 +4,12 @@ from carpark import CarPark
 from car import Car
 from sensor import Sensor
 from display import Display
+from datetime import datetime
 
 class TestCarPark(unittest.TestCase):
     def setUp(self):
-        log_file_path = "log.txt"
-        self.carpark = CarPark("Belmont", 25, log_file = Path(log_file_path))
+        self.log_file_path = Path("log.txt")
+        self.carpark = CarPark("Belmont", 25, log_file = Path(self.log_file_path))
         self.sensor = Sensor(1, self.carpark)
         self.display = Display(2, self.carpark)
         self.car = Car(_license_plate="123")
@@ -25,28 +26,26 @@ class TestCarPark(unittest.TestCase):
         self.assertEqual(self.carpark.license_plates, [])
         self.assertEqual(self.carpark.displays, [])
         self.assertEqual(self.carpark.sensor, [])
-        self.assertEqual(self.carpark.log_file, Path(log_file_path))
+        self.assertEqual(self.carpark.log_file, Path(self.log_file_path))
     
-
-    def test_log_file_created_when_car_parked(self):
-        self.car.park(self.carpark)
-        self.sensor.scan_car(self.car)
-        self.assertTrue(self.new_carpark.log_file.exists())
+    def test_log_file_exists(self):
+        self.assertTrue(self.carpark.log_file.exists())
 
     def test_car_logged_when_entering(self):
         self.car.park(self.carpark)
+        self.sensor.scan_car(self.car)
         with self.carpark.log_file.open() as f:
             last_line = f.readlines()[-1]
-        self.assertIn("123 entered \n", last_line)
+        self.assertIn(f"Car with plate 123 parked at {datetime.now():%Y-%m-%d %H:%M:%S}\n", last_line)
 
     def test_car_logged_when_exiting(self):
+        self.car.park(self.carpark)
+        self.sensor.scan_car(self.car)
         self.car.exit()
+        self.sensor.scan_car(self.car)
         with self.carpark.log_file.open() as f:
             last_line = f.readlines()[-1]
-        self.assertIn("123 exited \n", last_line)
-
-    def tearDown(self):
-       Path(log_file_path).unlink(missing_ok=True)
+        self.assertIn(f"Car with plate 123 left at {datetime.now():%Y-%m-%d %H:%M:%S}\n", last_line)
 
     def test_register_sensor(self):
         self.carpark.register_component(self.sensor)
@@ -56,7 +55,8 @@ class TestCarPark(unittest.TestCase):
         self.carpark.register_component(self.display)
         self.assertIn(self.display, self.carpark.displays)
 
-
+    def tearDown(self):
+       Path(self.log_file_path).unlink(missing_ok=True)
 
 
 if __name__ == "__main__":

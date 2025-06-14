@@ -1,4 +1,3 @@
-from datetime import datetime
 
 class Sensor:
     def __init__(self, id, carpark):
@@ -11,8 +10,9 @@ class Sensor:
     def scan_car(self, car):
         if car.parked_in_bay == True:
             self.carpark.cars.append(car)
-            car.entry_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         elif car.parked_in_bay == False:
-            car.exit_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            self.carpark.cars.remove(car)
+
         self.carpark.update_plate_database(car._license_plate)
+        self.carpark._log_car_activity(car)
 

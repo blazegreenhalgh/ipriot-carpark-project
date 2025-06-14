@@ -2,11 +2,9 @@ from carpark import CarPark
 import random
 
 class Car:
-    def __init__(self, _license_plate=None, carpark=None, entry_time=None, exit_time=None, parked_in_bay=False):
+    def __init__(self, _license_plate=None, carpark=None, parked_in_bay=False):
         self._license_plate = _license_plate or self._initiate_license_plate()
         self.carpark = carpark
-        self.entry_time = entry_time
-        self.exit_time = exit_time
         self.parked_in_bay = parked_in_bay
 
     def _initiate_license_plate(self):
